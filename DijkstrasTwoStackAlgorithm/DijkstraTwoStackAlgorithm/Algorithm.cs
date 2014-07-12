@@ -39,15 +39,15 @@ namespace DijkstraTwoStackAlgorithm
         /// <param name="expression">The string representation of the mathematical expression</param>
         /// <returns>Result of the expression</returns>
         /// <remarks>
-        /// Value:  Push onto the Values stack
+        /// Value:      Push onto the Values stack
         /// Operator:   Push onto the Operator stack, unless top of stack is a higher precedence operator, in which
         ///             case, calculate that new value first and place it on the values stack then push the operator
         ///             onto the stack
-        /// Left (:     Add to the Operator stack, to delimite precedence.
+        /// Left (:     Add to the Operator stack, to delimit precedence.
         /// Right ):    pop two values and the operator from the stacks, calculate the result.  continue like this
         ///             until a leftBrace operator is encountered, removing the leftBrace operator.
         /// </remarks>
-        public double Interpret(string expression)
+        public double Calculate(string expression)
         {
             foreach (var s in expression)
             {

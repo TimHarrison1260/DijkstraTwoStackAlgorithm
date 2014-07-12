@@ -32,7 +32,7 @@ namespace UnitTests
             string expression = @"";
 
             //  Act
-            var result = _algorithm.Interpret(expression);
+            var result = _algorithm.Calculate(expression);
 
             //  Assert
             Assert.AreEqual(0D, result, "Expected Zero, as empty string entered");
@@ -46,7 +46,7 @@ namespace UnitTests
             string expression = @"1+2+3";
 
             //  Act
-            var result = _algorithm.Interpret(expression);
+            var result = _algorithm.Calculate(expression);
 
             //  Assert
             Assert.AreEqual(6D, result, "Expected 6, 1+2+3 = 6");
@@ -60,7 +60,7 @@ namespace UnitTests
             string expression = @"1*4/2";
 
             //  Act
-            var result = _algorithm.Interpret(expression);
+            var result = _algorithm.Calculate(expression);
 
             //  Assert
             Assert.AreEqual(2D, result, "Expected 2, 1*4/2 = 2");
@@ -74,7 +74,7 @@ namespace UnitTests
             string expression = @"1+4/2";
 
             //  Act
-            var result = _algorithm.Interpret(expression);
+            var result = _algorithm.Calculate(expression);
 
             //  Assert
             Assert.AreEqual(3D, result, "Expected 3, 1+4/2 = 3");
@@ -88,7 +88,7 @@ namespace UnitTests
             string expression = @"1+(4/2)";
 
             //  Act
-            var result = _algorithm.Interpret(expression);
+            var result = _algorithm.Calculate(expression);
 
             //  Assert
             Assert.AreEqual(3D, result, "Expected 3, 1+(4/2) = 3");
@@ -102,7 +102,7 @@ namespace UnitTests
             string expression = @"9*(2+(3 - 2)*3)";
 
             //  Act
-            var result = _algorithm.Interpret(expression);
+            var result = _algorithm.Calculate(expression);
 
             //  Assert
             Assert.AreEqual(45D, result, "Expected 45, 9*(2+(3-2)*3) = 45");
@@ -116,7 +116,7 @@ namespace UnitTests
             string expression = @"1+(3+(6/2)-1)*4*5";
 
             //  Act
-            var result = _algorithm.Interpret(expression);
+            var result = _algorithm.Calculate(expression);
 
             //  Assert
             Assert.AreEqual(101D, result, "Expected 101, 1+(3+(6/2)-1)*4*5 =101");
@@ -130,7 +130,7 @@ namespace UnitTests
             string expression = @"1+(3+6/2-1)*4*5";
 
             //  Act
-            var result = _algorithm.Interpret(expression);
+            var result = _algorithm.Calculate(expression);
 
             //  Assert
             Assert.AreEqual(101D, result, "Expected 101, 1+(3+6/2-1)*4*5 =101");

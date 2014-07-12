@@ -34,7 +34,7 @@ namespace DijkstrasWeb.Controllers
                 var algorithm = new Algorithm();
 
                 var expression = dijkstra.Expression;
-                var result = algorithm.Interpret(expression);
+                var result = algorithm.Calculate(expression);
 
                 var model = new DijkstrasTwoStackAlgorithmModel();
                 

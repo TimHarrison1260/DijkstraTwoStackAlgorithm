@@ -12,17 +12,17 @@ namespace DijkstraTwoStackAlgorithm.Operators
         protected OperatorBase()
         {
             Title = string.Empty;
-            Code = ' ';
+            Token = ' ';
             Precedence = 0;
-            AssociativityLevel = "Left";
+            Associativity = "Left";
         }
 
-        protected OperatorBase(string title, char code, int precedence, string associativityLevel)
+        protected OperatorBase(string title, char token, int precedence, string associativity)
         {
-            this.Title = title;
-            Code = code;
+            Title = title;
+            Token = token;
             Precedence = precedence;
-            AssociativityLevel = associativityLevel;
+            Associativity = associativity;
         }
 
         /*
@@ -34,17 +34,21 @@ namespace DijkstraTwoStackAlgorithm.Operators
         public string Title { get; set; }
 
         /// <summary>
-        /// Get or set the ASCII code of the operator
+        /// Get or set the ASCII Token of the operator
         /// </summary>
-        public char Code { get; set; }
+        public char Token { get; set; }
 
+        /// <summary>
+        /// Get or set the Precedence of the operators.
+        /// Add, Sub are same, but lower than Mult, Divide.
+        /// </summary>
         public int Precedence { get; set; }
 
         /// <summary>
-        /// Get or set the Associativity level of the operations
-        /// Add, Sub are same, but lower than Mult, Divide.
+        /// Get or set the Associativity of the operations
+        /// Add, Sub, Mult and Divide are all Left Associative.
         /// </summary>
-        public string AssociativityLevel { get; set; }
+        public string Associativity { get; set; }
 
         /*
          * Methods
@@ -53,10 +57,10 @@ namespace DijkstraTwoStackAlgorithm.Operators
         /// <summary>
         /// Perform the operation against the supplied values
         /// </summary>
-        /// <param name="v1">First Value</param>
-        /// <param name="v2">Second Value</param>
+        /// <param name="vLeft">First Value</param>
+        /// <param name="vRight">Second Value</param>
         /// <returns>Result of operation.</returns>
-        public abstract double Calculate(double v1, double v2);
+        public abstract double Calculate(double vLeft, double vRight);
 
         /// <summary>
         /// Compare the operators, based upon the operator precedence
@@ -65,7 +69,7 @@ namespace DijkstraTwoStackAlgorithm.Operators
         /// <returns>+1 if this is greater, 0 if they are equal, -1 if this is less</returns>
         public int CompareTo(OperatorBase other)
         {
-            var result = this.Precedence.CompareTo(other.Precedence);
+            var result = Precedence.CompareTo(other.Precedence);
             return result;
         }
 

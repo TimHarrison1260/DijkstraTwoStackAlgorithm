@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace DijkstraTwoStackAlgorithm.Operators
 {
@@ -41,12 +42,7 @@ namespace DijkstraTwoStackAlgorithm.Operators
         /// <returns>True if a match is found, otherwise false</returns>
         public bool IsOperator(char operatorCode)
         {
-            foreach (var op in _operators)
-            {
-                if (operatorCode == op.Code)
-                    return true;
-            }
-            return false;
+            return _operators.Any(op => operatorCode == op.Token);
         }
 
         /// <summary>
@@ -57,12 +53,7 @@ namespace DijkstraTwoStackAlgorithm.Operators
         /// <returns>The operator instance if a match is found, otherwise null</returns>
         public OperatorBase GetOperator(char operatorCode)
         {
-            foreach (var op in _operators)
-            {
-                if (operatorCode == op.Code)
-                    return op;
-            }
-            return null;
+            return _operators.FirstOrDefault(op => operatorCode == op.Token);
         }
     }
 }
