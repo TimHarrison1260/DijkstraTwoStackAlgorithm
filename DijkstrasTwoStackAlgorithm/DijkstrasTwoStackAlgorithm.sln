@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DijkstraTwoStackAlgorithm",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{498B17D6-E23F-4D53-8822-C7BAEBE5F6BA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calculator", "Calculator\Calculator.csproj", "{34AC4F66-1CB2-4FE5-A290-0165695A003C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,6 +27,10 @@ Global
 		{498B17D6-E23F-4D53-8822-C7BAEBE5F6BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{498B17D6-E23F-4D53-8822-C7BAEBE5F6BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{498B17D6-E23F-4D53-8822-C7BAEBE5F6BA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{34AC4F66-1CB2-4FE5-A290-0165695A003C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{34AC4F66-1CB2-4FE5-A290-0165695A003C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{34AC4F66-1CB2-4FE5-A290-0165695A003C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{34AC4F66-1CB2-4FE5-A290-0165695A003C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

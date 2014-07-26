@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using DijkstraTwoStackAlgorithm.Interfaces;
 
 namespace DijkstraTwoStackAlgorithm.Operators
 {
@@ -17,7 +18,7 @@ namespace DijkstraTwoStackAlgorithm.Operators
     ///     the operater identifier, for user functions say.
     /// </para>
     /// </remarks>
-    public class DefinedOperators
+    public class DefinedOperators : IDefinedOperators
     {
         private readonly List<OperatorBase> _operators;
 

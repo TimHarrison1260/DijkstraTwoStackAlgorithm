@@ -53,6 +53,7 @@
     <Compile Include="AlgorithmIntegrationTests.cs" />
     <Compile Include="OperatorUnitTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ExpressionBuilderUnitTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DijkstraTwoStackAlgorithm\DijkstraTwoStackAlgorithm.csproj">

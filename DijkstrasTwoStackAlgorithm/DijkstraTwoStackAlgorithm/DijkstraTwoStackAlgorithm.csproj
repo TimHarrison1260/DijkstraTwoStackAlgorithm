@@ -40,6 +40,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Algorithm.cs" />
+    <Compile Include="ExpressionBuilder.cs" />
+    <Compile Include="Helpers\AlgorithmHelper.cs" />
+    <Compile Include="Helpers\ExpressionBuilderHelper.cs" />
+    <Compile Include="Helpers\ExpressionReturnCode.cs" />
+    <Compile Include="Interfaces\IAlgorithm.cs" />
+    <Compile Include="Interfaces\IDefinedOperators.cs" />
+    <Compile Include="Interfaces\IExpressionBuilder.cs" />
     <Compile Include="Operators\OpDivision.cs" />
     <Compile Include="Operators\OpLeftBrace.cs" />
     <Compile Include="Operators\OpSubtraction.cs" />

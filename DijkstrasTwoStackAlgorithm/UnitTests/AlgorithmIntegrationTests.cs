@@ -136,7 +136,19 @@ namespace UnitTests
             Assert.AreEqual(101D, result, "Expected 101, 1+(3+6/2-1)*4*5 =101");
         }
 
+        [TestMethod]
+        [TestCategory("IntegrationTest_Algorithm")]
+        public void Imput_NoBraces_MixedOperators_Returns_OK()
+        {
+            //  Arrange
+            string expression = @"1+3*2";
 
+            //  Act
+            var result = _algorithm.Calculate(expression);
+
+            //  Assert
+            Assert.AreEqual(7D, result, "Expected 7, 1+3*2 = 7");
+        }
 
     }
 }

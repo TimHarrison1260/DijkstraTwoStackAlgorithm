@@ -1,0 +1,173 @@
+﻿<Window x:Class="Calculator.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Dijkstra's Calculator" Height="420" Width="280"
+        DataContext="{Binding Main, Source={StaticResource Locator}}">
+
+    <Grid Name="MainGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Row="0"
+                    Orientation="Horizontal">
+            <!-- Make the Text box stretch to the full width, by binding it to the width of the container -->
+            <Border Padding="5,5,5,5"
+                    Width="{Binding ElementName=MainGrid, Path=ActualWidth}"
+                    BorderThickness="2"
+                    BorderBrush="Gray"
+                    CornerRadius="5">
+                <TextBox Text="{Binding Expression, Mode=OneWay}"
+                     Padding="5,5,5,5"
+                     Margin="0,5,0,5"
+                     FontSize="18"
+                     Height="35px">
+                </TextBox>
+            </Border>
+        </StackPanel>
+        <StackPanel Grid.Row="1"
+                    Orientation="Vertical">
+            <StackPanel Orientation="Horizontal"
+                        Width="{Binding ElementName=MainGrid, Path=ActualWidth}">
+                <!--Add 4 buttons to this-->
+                <Button Name="LeftBraceButton"
+                        Command="{Binding LeftBraceCommand}"
+                        Content="("
+                        Style="{StaticResource RoundedCalculatorButtonStyle}">
+                </Button>
+                <Button Name="RightBraceButton"
+                        Command="{Binding RightBraceCommand}"
+                        Content=")"
+                        Style="{StaticResource RoundedCalculatorButtonStyle}">
+                </Button>
+                <Button Name="CancelButton"
+                        Command="{Binding CancelCommand}"
+                        Content="CE"
+                        Style="{StaticResource RoundedCalculatorButtonStyle}">
+                </Button>
+                <Button Name="ClearButton"
+                        Command="{Binding ClearCommand}"
+                        Content="C"
+                        Style="{StaticResource RoundedCalculatorButtonStyle}">
+                </Button>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal"
+                        Width="{Binding ElementName=MainGrid, Path=ActualWidth}">
+                <!--Add 4 buttons to this-->
+                <Button Name="SevenButton"
+                        Command="{Binding SevenCommand}"
+                        Content="7"
+                        Style="{StaticResource RoundedCalculatorButtonStyle}">
+                </Button>
+                <Button Name="EightButton"
+                        Command="{Binding EightCommand}"
+                        Content="8"
+                        Style="{StaticResource RoundedCalculatorButtonStyle}">
+                </Button>
+                <Button Name="NineButton"
+                        Command="{Binding NineCommand}"
+                        Content="9"
+                        Style="{StaticResource RoundedCalculatorButtonStyle}">
+                </Button>
+                <Button Name="AddButton"
+                        Command="{Binding AddCommand}"
+                        Content="+"
+                        Style="{StaticResource RoundedCalculatorButtonStyle}">
+                </Button>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal"
+                        Width="{Binding ElementName=MainGrid, Path=ActualWidth}">
+                <!--Add 4 buttons to this-->
+                <Button Name="FourButton"
+                        Command="{Binding FourCommand}"
+                        Content="4"
+                        Style="{StaticResource RoundedCalculatorButtonStyle}">
+                </Button>
+                <Button Name="FiveButton"
+                        Command="{Binding FiveCommand}"
+                        Content="5"
+                        Style="{StaticResource RoundedCalculatorButtonStyle}">
+                </Button>
+                <Button Name="SixButton"
+                        Command="{Binding SixCommand}"
+                        Content="6"
+                        Style="{StaticResource RoundedCalculatorButtonStyle}">
+                </Button>
+                <Button Name="SubtractButton"
+                        Command="{Binding SubtractCommand}"
+                        Content="-"
+                        Style="{StaticResource RoundedCalculatorButtonStyle}">
+                </Button>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal"
+                        Width="{Binding ElementName=MainGrid, Path=ActualWidth}">
+                <!--Add 4 buttons to this-->
+                <Button Name="OneButton"
+                        Command="{Binding OneCommand}"
+                        Content="1"
+                        Style="{StaticResource RoundedCalculatorButtonStyle}">
+                </Button>
+                <Button Name="TwoButton"
+                        Command="{Binding TwoCommand}"
+                        Content="2"
+                        Style="{StaticResource RoundedCalculatorButtonStyle}">
+                </Button>
+                <Button Name="ThreeButton"
+                        Command="{Binding ThreeCommand}"
+                        Content="3"
+                        Style="{StaticResource RoundedCalculatorButtonStyle}">
+                </Button>
+                <Button Name="MultiplyButton"
+                        Command="{Binding MultiplyCommand}"
+                        Content="*"
+                        Style="{StaticResource RoundedCalculatorButtonStyle}">
+                </Button>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal"
+                        Width="{Binding ElementName=MainGrid, Path=ActualWidth}">
+                <!--Add 4 buttons to this-->
+                <Button Name="DecimalButton"
+                        Command="{Binding DecimalPointCommand}"
+                        Content="."
+                        Style="{StaticResource RoundedCalculatorButtonStyle}">
+                </Button>
+                <Button Name="ZeroButton"
+                        Command="{Binding ZeroCommand}"
+                        Content="0"
+                        Style="{StaticResource RoundedCalculatorButtonStyle}">
+                </Button>
+                <Button Name="CommaButton"
+                        Command="{Binding CommaCommand}"
+                        Content=","
+                        Style="{StaticResource RoundedCalculatorButtonStyle}">
+                </Button>
+                <Button Name="DivideButton"
+                        Command="{Binding DivideCommand}"
+                        Content="/"
+                        Style="{StaticResource RoundedCalculatorButtonStyle}">
+                </Button>
+            </StackPanel>
+            <StackPanel Width="{Binding ElementName=MainGrid, Path=ActualWidth}"
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Right">
+                    <Button Name="CalculateButton"
+                            Command="{Binding CalculateCommand}"
+                            Content="="
+                            Style="{StaticResource RoundedCalculatorButtonStyle}"
+                            Margin="185,5,5,5">
+                    </Button>
+            </StackPanel>
+            <DockPanel Dock="Top">
+                <TextBlock Name="ErrorMessage"
+                           Height="auto"
+                           Text="{Binding Message, Mode=OneWay}"
+                           TextWrapping="Wrap" />
+            </DockPanel>
+        </StackPanel>
+        
+        
+    </Grid>
+</Window>

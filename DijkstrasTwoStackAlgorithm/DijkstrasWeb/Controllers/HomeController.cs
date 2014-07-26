@@ -1,54 +1,120 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Common.CommandTrees;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using DijkstrasWeb.Models;
 using DijkstraTwoStackAlgorithm;
+using DijkstraTwoStackAlgorithm.Interfaces;
 
 namespace DijkstrasWeb.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IAlgorithm _algorithm;     // Instance of algorithm
+        private readonly IExpressionBuilder _builder;
+
+        public HomeController(IExpressionBuilder builder, IAlgorithm algorithm)
+        {
+            if (builder == null)
+                throw new ArgumentNullException("builder", "No valid ExpressionBuilder class supplied to Home Controller.");
+            if (algorithm == null)
+                throw new ArgumentNullException("algorithm", "No valid Algorithm class supplied to Home Controller.");
+
+            _builder = builder;
+            _algorithm = algorithm;
+        }
+
+
         public ActionResult Index()
         {
-            ViewBag.Message = "Modify this template to jump-start your ASP.NET MVC application.";
+            ViewBag.Title = "Dijkstra's Two Stack Algorithm";
 
             return View();
         }
 
 
-        public ActionResult Dijkstra()
+        [HttpPost]
+        public ActionResult NumberButtonClick(char value, string expression)
         {
             var model = new DijkstrasTwoStackAlgorithmModel();
-            model.Expression = "enter the math expression here";
-            model.Result = 0.0;
-            return View(model);
+            _builder.SetExpression(expression);
+            var result = _builder.AddDigit(value);
+            if (!result.Success)
+            {
+                model.Message = result.ErrorMessage;
+            }
+
+            model.Expression = _builder.GetExpression();
+            return Json(model);
         }
 
         [HttpPost]
-        public ActionResult Dijkstra(DijkstrasTwoStackAlgorithmModel dijkstra)
+        public ActionResult OperatorButtonClick(char value, string expression)
         {
-            try
+            var model = new DijkstrasTwoStackAlgorithmModel();
+            _builder.SetExpression(expression);
+            var result = _builder.AddOperator(value);
+            if (!result.Success)
             {
-                var algorithm = new Algorithm();
-
-                var expression = dijkstra.Expression;
-                var result = algorithm.Calculate(expression);
-
-                var model = new DijkstrasTwoStackAlgorithmModel();
-                
-                model.Expression = expression;
-                model.Result = result;
-
-                dijkstra.Result = result;
-
-                return View(dijkstra);
+                model.Message = result.ErrorMessage;
             }
-            catch (Exception e)
+
+            model.Expression = _builder.GetExpression();
+            return Json(model);
+        }
+
+        [HttpPost]
+        public ActionResult RightBraceButtonClick(char value, string expression)
+        {
+            var model = new DijkstrasTwoStackAlgorithmModel();
+            _builder.SetExpression(expression);
+            var result = _builder.AddRightBrace(value);
+            if (!result.Success)
             {
-                return View();
+                model.Message = result.ErrorMessage;
             }
+
+            model.Expression = _builder.GetExpression();
+            return Json(model);
+        }
+
+        [HttpPost]
+        public ActionResult CancelButtonClick(char value, string expression)
+        {
+            var model = new DijkstrasTwoStackAlgorithmModel();
+            _builder.SetExpression(expression);
+            var result = _builder.RemoveLastCharacter();
+            if (!result.Success)
+            {
+                model.Message = result.ErrorMessage;
+            }
+
+            model.Expression = _builder.GetExpression();
+            return Json(model);
+        }
+
+        [HttpPost]
+        public ActionResult ClearButtonClick(char value, string expression)
+        {
+            var model = new DijkstrasTwoStackAlgorithmModel();
+            return Json(model);
+        }
+
+
+        [HttpPost]
+        public ActionResult EqualsButtonClick(string expression)
+        {
+            var result = _algorithm.Calculate(expression);
+
+            var model = new DijkstrasTwoStackAlgorithmModel
+            {
+                Expression = expression, 
+                Answer = result
+            };
+
+            return Json(model);
         }
 
 

@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using DijkstraTwoStackAlgorithm.Helpers;
+using DijkstraTwoStackAlgorithm.Interfaces;
 using DijkstraTwoStackAlgorithm.Operators;
 
 namespace DijkstraTwoStackAlgorithm
@@ -16,11 +19,12 @@ namespace DijkstraTwoStackAlgorithm
     /// 3.  The operators observe normal precedence, i.e. Mult/Div before Add/Sub
     /// 4.  The operators are tokenised as the corresponding ASCII code
     /// </remarks>
-    public class Algorithm
+    public class Algorithm : IAlgorithm
     {
         private readonly Stack<double> _values;
         private readonly Stack<OperatorBase> _operators;
-        private readonly DefinedOperators _definedOperators;
+        private readonly IDefinedOperators _definedOperators;
+        private readonly AlgorithmHelper _helper;
 
         public Algorithm()
         {
@@ -30,6 +34,9 @@ namespace DijkstraTwoStackAlgorithm
 
             //  Operators defined for the algorithm
             _definedOperators = new DefinedOperators();        
+
+            //  Helper class, expression interpretation
+            _helper = new AlgorithmHelper();
         }
 
         /// <summary>
@@ -49,17 +56,28 @@ namespace DijkstraTwoStackAlgorithm
         /// </remarks>
         public double Calculate(string expression)
         {
-            foreach (var s in expression)
-            {
-                if (IsIgnore(s)) continue;      //  Ignore character (space)
+            if (expression.Length == 0) return 0.0D;
 
-                if (IsValue(s))
+            //  Convert Foreach to For loop, to allow control over the indexer.
+            for (int i = 0; i < expression.Length; i++)
+            {
+                char s = expression[i];
+
+                if (_helper.IsIgnore(s)) continue;      //  Ignore character (space)
+
+                if (_helper.IsNumeric(s) || _helper.IsLeadingMinus(s, expression, i))
                 {
-                    _values.Push((double)(s - 48));
+                    var len = _helper.GetValueLength(expression, i);
+                    var value = _helper.GetValue(expression, i, len);
+                    _values.Push(value);
+                    //  Advance i by (len - 1) as loop will advance i by 1 as well
+                    i += (len - 1);
+
+                    //_values.Push((double)(s - 48));
                     continue;
                 }
 
-                if (IsLeftBrace(s))
+                if (_helper.IsLeftBrace(s))
                 {
                     //  push the Bracket OP to the operator stack: a special operator
                     _operators.Push(_definedOperators.GetOperator(s));
@@ -68,6 +86,8 @@ namespace DijkstraTwoStackAlgorithm
 
                 if (_definedOperators.IsOperator(s))
                 {
+
+
                     var op = _definedOperators.GetOperator(s);
 
                     if (_operators.Count > 0)
@@ -99,7 +119,7 @@ namespace DijkstraTwoStackAlgorithm
                     continue;
                 }
 
-                if (IsRightBrace(s))
+                if (_helper.IsRightBrace(s))
                 {
                     //  while the operator is not a LeftBrace
                     //  Then;
@@ -115,7 +135,12 @@ namespace DijkstraTwoStackAlgorithm
                     }
                     //  Remove the top LeftBrace operator
                     _operators.Pop();
+
+                    continue;
                 }
+
+                //  If here, invalid character in expression at position i
+                throw new Exception(string.Format("Invalid Character {0} at position {1}", s, i+1));
 
             }
 
@@ -130,53 +155,19 @@ namespace DijkstraTwoStackAlgorithm
             return 0D;
         }
 
-        /// <summary>
-        /// Determine if character is a left bracket
-        /// </summary>
-        /// <param name="c">the character</param>
-        /// <returns>True if a left bracket otherwise false</returns>
-        private bool IsLeftBrace(char c)
-        {
-            //var remainder = 40 - c; //  (
-            if ((40 - c) == 0) return true;
-            return false;
-        }
 
         /// <summary>
-        /// Determines if the character is to be ignored
+        /// Converts the input expressions (infix format) to Rpn format
         /// </summary>
-        /// <param name="c">the character</param>
-        /// <returns>True if space otherwise false</returns>
-        private bool IsIgnore(char c)
+        /// <param name="expression"></param>
+        /// <returns></returns>
+        public string ConvertToRpn(string expression)
         {
-            //remainder = 32 - c;     //  ' ' space
-            if ((32 - c) == 0) return true;
-            return false;
+            throw new NotImplementedException();
         }
 
-        /// <summary>
-        /// Determines of the character is a number
-        /// </summary>
-        /// <param name="c">the character</param>
-        /// <returns>True if a number otherwise false</returns>
-        private bool IsValue(char c)
-        {
-            //  To be a value it must be 0, 9 inclusive => 48, 57
-            var result = (c < 58 && c > 47);
-            return result;
-        }
 
-        /// <summary>
-        /// Determines if character is a Right bracket
-        /// </summary>
-        /// <param name="c">the character</param>
-        /// <returns>True if a right bracket otherwise false</returns>
-        private bool IsRightBrace(char c)
-        {
-            //var remainder = 41 - c;
-            if ((41 - c) == 0) return true;
-            return false;
-        }
+
 
         /// <summary>
         /// Computes the intermediate results using the operator

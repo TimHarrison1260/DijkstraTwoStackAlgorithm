@@ -1,28 +1,66 @@
 ﻿@{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Dijkstra's Calculator";
 }
+<!-- Hidden elements for resolving MVC controller methods -->
+<div id="UrlHelpers" class="hidden">
+    <div id ="UrlAction" class="hidden" data-urlaction="@Url.Action("PLACEHOLDER", "Home", new{})" ></div>
+    <div id="UrlContent" class="hidden" data-urlcontent="@Url.Content("~/")"></div>
+</div>
+
 @section featured {
-    <section class="featured">
+    <section class="main-content">
         <div class="content-wrapper">
-            <hgroup class="title">
-                <h1>@ViewBag.Title.</h1>
-                <h2>@ViewBag.Message</h2>
-            </hgroup>
-            <p>
-                To learn more about ASP.NET MVC visit
-                <a href="http://asp.net/mvc" title="ASP.NET MVC Website">http://asp.net/mvc</a>.
-                The page features <mark>videos, tutorials, and samples</mark> to help you get the most from ASP.NET MVC.
-                If you have any questions about ASP.NET MVC visit
-                <a href="http://forums.asp.net/1146.aspx/1?MVC" title="ASP.NET MVC Forum">our forums</a>.
-            </p>
+            <div id="calculator" class="calculatorborder">
+                <div id="display" class="display" >
+                    <input id="displayExpression" type="text" value="" readonly="readonly" onfocus="this.blur()" />
+                    <input id="displayAnswer" type="text" value="" readonly="readonly"onfocus="this.blur()" />
+                </div>
+                <div id="keypad" class="keypad">
+                    <div id="toprow">
+                        <input type="button" class="operatorbutton calculatorbutton" id="buttonLeftBrace" name="buttonLeftBrace" value="("  />
+                        <input type="button" class="rightbracebutton calculatorbutton" id="buttonRightBrace" name="buttonRightBrace" value=")" />
+                        <input type="button" class="cancelbutton calculatorbutton" id="buttonCancelError" name="buttonCancelError" value="CE" />
+                        <input type="button" class="clearbutton calculatorbutton" id="buttonClear" name="buttonClear" value="C" />
+                    </div>
+                    <div id="secondrow">
+                        <input type="button" class="numberbutton calculatorbutton" id="buttonSeven" name="buttonSeven" value="7" />
+                        <input type="button" class="numberbutton calculatorbutton" id="buttonEight" name="buttonEight" value="8" />
+                        <input type="button" class="numberbutton calculatorbutton" id="buttonNine" name="buttonNine" value="9"  />
+                        <input type="button" class="operatorbutton calculatorbutton" id="buttonAdd" name="buttonAdd" value="+" />
+                    </div>
+                    <div id="thirdrow">
+                        <input type="button" class="numberbutton calculatorbutton" id="buttonFour" name="buttonFour" value="4" />
+                        <input type="button" class="numberbutton calculatorbutton" id="buttonFive" name="buttonFive" value="5" />
+                        <input type="button" class="numberbutton calculatorbutton" id="buttonSix" name="buttonSix" value="6"  />
+                        <input type="button" class="operatorbutton calculatorbutton" id="buttonSubtract" name="buttonSubtract" value="-" />
+                    </div>
+                    <div id="fourthrow">
+                        <input type="button" class="numberbutton calculatorbutton" id="buttonOne" name="buttonOne" value="1" />
+                        <input type="button" class="numberbutton calculatorbutton" id="buttonTwo" name="buttonTwo" value="2" />
+                        <input type="button" class="numberbutton calculatorbutton" id="buttonThree" name="buttonThree" value="3"  />
+                        <input type="button" class="operatorbutton calculatorbutton" id="buttonMultiply" name="buttonMultiply" value="*" />
+                    </div>
+                    <div id="fifthrow">
+                        <input type="button" class="numberbutton calculatorbutton" id="buttonDecimal" name="buttonDecimal" value="." />
+                        <input type="button" class="numberbutton calculatorbutton" id="buttonZero" name="buttonZero" value="0" />
+                        <input type="button" class="numberbutton calculatorbutton" id="buttonComma" name="buttonComma" value=","  />
+                        <input type="button" class="operatorbutton calculatorbutton" id="buttonDivide" name="buttonDivide" value="/" />
+                    </div>
+                    <div id="lastrow">
+                        <input type="button" class="computebutton calculatorbutton" id="Equals" name="Equals" value ="=" 
+                               style="margin: 5px 5px 5px 195px;" />
+                    </div>
+                    <div id="validationmessage">
+                        <textarea id="message" class="message-error" cols="25" rows="2" readonly="readonly" onfocus="this.blur()"></textarea>
+                    </div>
+                </div>
+            </div>
+        
         </div>
     </section>
 }
-<h3>We suggest the following:</h3>
-<ol class="round">
-    <li class="one">
-        <h5>Dijkstras Two stack Algorithm</h5>
-        @Html.ActionLink("Dijkstra", "Dijkstra")
-    </li>
 
-</ol>
+@section Scripts {
+    @Scripts.Render("~/bundles/app")
+    @Scripts.Render("~/bundles/jqueryval")
+}
