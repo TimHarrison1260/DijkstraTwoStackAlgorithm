@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Text;
 using DijkstraTwoStackAlgorithm.Helpers;
 using DijkstraTwoStackAlgorithm.Interfaces;
@@ -22,14 +23,14 @@ namespace DijkstraTwoStackAlgorithm
         /// Ctor: accepts instance of DefinedOperators
         /// </summary>
         ///// <param name="definedOperators">Instance of DefinedOperators</param>
-        public ExpressionBuilder()  //  IDefinedOperators definedOperators)
+        public ExpressionBuilder(IDefinedOperators definedOperators)
         {
-            //if (definedOperators == null)
-            //    throw new ArgumentNullException("definedOperators", "No operators defined to the Expression Builder");
+            if (definedOperators == null)
+                throw new ArgumentNullException("definedOperators", "No operators defined to the Expression Builder");
 
-            //_definedOperators = definedOperators;
+            _definedOperators = definedOperators;
 
-            _definedOperators = new DefinedOperators();
+            //_definedOperators = new DefinedOperators();
 
             _expression = new StringBuilder();
 
@@ -38,19 +39,7 @@ namespace DijkstraTwoStackAlgorithm
             _leftBracePositions = new Stack<int>();
         }
 
-
-        //public string Expression
-        //{
-        //    get { return _expression.ToString(); }
-        //    set
-        //    {
-        //        _expression = new StringBuilder();
-        //        _expression.Append(value);
-        //    }
-        //}
-
-
-
+        
         /// <summary>
         /// Adds a numeric digit to the expression
         /// </summary>
@@ -63,8 +52,12 @@ namespace DijkstraTwoStackAlgorithm
                 //  Is this the first decimal point in the number
                 if (!_helper.IsDecimalValid(digit, _expression.ToString()))
                     return new ExpressionReturnCode(false, "A second decimal point is not valid in a number.");
+                //  Is it a comma and in a valid position
                 if (!_helper.IsCommaValid(digit, _expression.ToString()))
                     return new ExpressionReturnCode(false, "Comma not valid after decimal or more than 3 digits separation from previous comma.");
+                //  Is previous character is a right brace
+                if (_expression.Length > 0 && _helper.IsRightBrace(_expression[_expression.Length - 1]))
+                    return new ExpressionReturnCode(false, "Cannot place digit immediately after a right brace, must follow right brace with an operator.");
                 //  OK
                 _expression.Append(digit);
                 return new ExpressionReturnCode();

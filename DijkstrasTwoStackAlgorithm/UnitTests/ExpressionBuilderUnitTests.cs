@@ -10,14 +10,14 @@ namespace UnitTests
     public class ExpressionBuilderUnitTests
     {
         private IExpressionBuilder _expressionBuilder;
-        //private IDefinedOperators _definedOperators;
+        private IDefinedOperators _definedOperators;
 
         [TestInitialize]
         public void Initialise()
         {
             //  Arrange
-            //_definedOperators = new DefinedOperators();
-            _expressionBuilder = new ExpressionBuilder();   //  new DefinedOperators());
+            _definedOperators = new DefinedOperators();
+            _expressionBuilder = new ExpressionBuilder(_definedOperators);
         }
 
 
@@ -144,6 +144,18 @@ namespace UnitTests
             var resultLeftAfterOp = _expressionBuilder.AddOperator('(');
 
             Assert.IsTrue(resultLeftAfterOp.Success, "Expected '(' to be added, open braces immediately after operator");
+        }
+
+        [TestMethod]
+        [TestCategory("ExpressionBuilder")]
+        public void AddDigitAfterRightBrace_Fail()
+        {
+            _expressionBuilder.SetExpression("5*(1+2)");
+
+            var result = _expressionBuilder.AddDigit('8');
+
+            Assert.IsFalse(result.Success, "Expected digit not allowed immediately after right brace.");
+
         }
 
     }

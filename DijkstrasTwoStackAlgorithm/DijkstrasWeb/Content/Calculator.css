@@ -39,14 +39,17 @@
 }
 
 .display input {
+    border-color: #fff;
     width: auto;
 }
 
 #displayAnswer {
+    border-color: #fff;
     width: 20%;
 }
 
 .message-error {
+    border-color: #fff;
     padding: 5px;
     margin: 15px 5px 5px 5px;
     height: auto;

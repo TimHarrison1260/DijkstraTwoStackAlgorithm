@@ -14,6 +14,7 @@
 
 using DijkstraTwoStackAlgorithm;
 using DijkstraTwoStackAlgorithm.Interfaces;
+using DijkstraTwoStackAlgorithm.Operators;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Practices.ServiceLocation;
@@ -41,6 +42,7 @@ namespace Calculator.ViewModel
             ////else
             ////{
             // Create run time view services and models
+            SimpleIoc.Default.Register<IDefinedOperators, DefinedOperators>();
             SimpleIoc.Default.Register<IExpressionBuilder, ExpressionBuilder>();
             SimpleIoc.Default.Register<IAlgorithm, Algorithm>();
             ////}

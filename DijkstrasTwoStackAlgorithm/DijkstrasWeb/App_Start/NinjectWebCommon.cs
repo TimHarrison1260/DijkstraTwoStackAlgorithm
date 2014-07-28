@@ -1,5 +1,6 @@
 using DijkstraTwoStackAlgorithm;
 using DijkstraTwoStackAlgorithm.Interfaces;
+using DijkstraTwoStackAlgorithm.Operators;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(DijkstrasWeb.App_Start.NinjectWebCommon), "Start")]
 [assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(DijkstrasWeb.App_Start.NinjectWebCommon), "Stop")]
@@ -66,6 +67,7 @@ namespace DijkstrasWeb.App_Start
         {
             //  Set the scope for the builder to a singleton, to allow internal
             //  settings to persist the HTTP Request.
+            kernel.Bind<IDefinedOperators>().To<DefinedOperators>();
             kernel.Bind<IExpressionBuilder>().To<ExpressionBuilder>().InSingletonScope();
             kernel.Bind<IAlgorithm>().To<Algorithm>();
         }        

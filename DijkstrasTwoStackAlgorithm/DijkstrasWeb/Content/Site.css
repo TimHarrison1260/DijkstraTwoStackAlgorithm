@@ -1,8 +1,10 @@
 ﻿html {
-    background-color: #e2e2e2;
+    background-color: #fff;
     margin: 0;
     padding: 0;
 }
+
+/*     background-color: #e2e2e2;*/
 
 body {
     background-color: #fff;
@@ -99,9 +101,10 @@ h5, h6 {
 }
 
 #body {
-    background-color: #efeeef;
+    background-color: #fff;
     clear: both;
-    padding-bottom: 35px;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
     .main-content {
@@ -120,7 +123,7 @@ header .content-wrapper {
 
 footer {
     clear: both;
-    background-color: #e2e2e2;
+    background-color: #fff;
     font-size: .8em;
     height: 100px;
 }
