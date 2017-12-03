@@ -61,7 +61,6 @@ $(document).ready(function () {
 
 });
 
-
 function callControllerMethod(url, character, currentExpression) {
     $.ajax({
         url: url,
@@ -70,12 +69,14 @@ function callControllerMethod(url, character, currentExpression) {
         dataType: 'json',
         success: function (result) {
             //  Update the Expression
-            var expression = result.Expression;
-            var answer = result.Answer;
+
+            //var expression = result.Expression;
+            var expression = (character === "=") ? result.Expression + " = " + result.Answer : result.Expression;
+            //var answer = result.Answer;
             var message = result.Message;
 
             $('#displayExpression').val(expression);    //           .val(expression);
-            $('#displayAnswer').val(answer);
+            //$('#displayAnswer').val(answer);
             $('#message').val(message);
         },
         error: function (xhr) {
